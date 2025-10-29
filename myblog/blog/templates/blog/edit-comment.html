@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div class="update-blog-post">
+        <h2>Edit Comment</h2>
+
+        <form action="{% url 'blog:edit-comment' comment.id %}" method = "POST">
+            {% csrf_token %}
+
+            {% if comment.user == request.user %}
+                <div class="edit-comment">
+                    {{ form.comment_content }}
+                </div>
+
+                <button type = 'submit'>
+                    Update
+                </button>
+            {% endif %}
+            &nbsp; &nbsp; &nbsp;
+
+            <a href="{% url 'blog:post-detail' comment.post.slug %}">Cancle</a>
+        </form>
+    </div>
+
+{% endblock%}

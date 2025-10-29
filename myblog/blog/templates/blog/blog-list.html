@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div class="post-list-container">
+
+        <h2>Blog Post</h2>
+        {% if user.is_staff %}
+            <div class="create-blog">
+                
+                    <a href="{% url "blog:post-create"%}">Create Blog Post</a>
+                
+            </div>
+            
+        {% endif %}
+
+        {% for post in postlist %}
+            <fieldset>
+                <div class="post-list">
+                    <div class="post-title">
+                        <ul>
+                            <li>
+                                <a href="{% url 'blog:post-detail' post.slug %}">
+                                    <strong>{{ post.title }}</strong>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="post-date-content">
+                        <p class = "post-date">
+                            Published on {{ post.published_date }} by {{ post.author }}
+                        </p>
+                        <p class="post-content">
+                            {{ post.content | truncatewords:15 | linebreaks }}
+                        </p>
+                    </div>
+
+                    {% if user.is_staff %}
+                        <div class="blog-post-update-delete">
+                            <span>
+                                <a href="{% url 'blog:post-update' post.slug%}">Edit</a>
+                            </span>
+                            &nbsp; &nbsp;
+                            <span>
+                                <a href="{% url 'blog:post-delete' post.slug%}">Delete</a>
+                            </span>
+                        </div>
+                        
+                    {% endif %}
+                </div>
+            </fieldset>
+        {% empty %}
+            No Post has been found.
+        {% endfor %}
+
+    </div>
+
+{% endblock%}

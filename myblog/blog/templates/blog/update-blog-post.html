@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div class="update-blog-post">
+        <h2>Update {{ title }} Blog Detail: </h2>
+
+        <form action="{% url 'blog:post-create'%}" method = "POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="post-detail">
+
+                <div class="post-title">
+                    <p>
+                        Title: 
+                    </p> {{ form.title }}
+                </div>
+
+                <div class="post-content">
+                    <p>
+                        Content:
+                    </p>
+                    {{ form.content }}
+
+                    <p>
+                        Images:
+                    </p>
+                    {{ form.image}}
+
+                    <p>
+                        Videos:
+                    </p>
+                    {{ form.video }}
+
+                    <p>
+                        Attachment:
+                    </p>
+                    {{ form.document}}
+                </div>
+
+                <div class="post-status">
+                    <p>
+                        Status: {{ form.status}}
+                    </p>
+                </div>
+            </div>
+
+            <button type = 'submit'>
+                Update
+            </button>
+            &nbsp; &nbsp; &nbsp;
+
+            <a href="{% url 'blog:post-list' %}">Cancle</a>
+        </form>
+    </div>
+
+{% endblock%}

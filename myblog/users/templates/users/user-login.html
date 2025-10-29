@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <h2>Login your existing account: </h2>
+    
+    <form action="{% url 'users:login' %}" method="POST">
+        {% csrf_token %}
+        <div class="user-login">
+
+            <div class="username">
+                <p>
+                    {{ auth_form.username.label_tag }}
+                    {{ auth_form.username }}
+                </p>
+            </div>
+
+            <div class="password">
+                <p>
+                    {{ auth_form.password.label_tag }}
+                    {{ auth_form.password }}
+                </p>
+            </div>
+        </div>
+
+        <button type = 'submit'>
+            Log In
+        </button>
+
+    </form>
+
+{% endblock %}

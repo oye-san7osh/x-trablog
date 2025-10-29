@@ -1,0 +1,20 @@
+
+{% extends 'layout.html' %}
+
+
+{% block content %}
+    <h2>
+        Are you sure you want to delete <strong>{{ post.title }}</strong> ?
+    </h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <button type="submit">
+            Yes, delete
+        </button>
+        &nbsp; &nbsp;
+        
+        <a href="{% url 'blog:post-list' %}" class="btn">No</a>
+    </form>
+{% endblock %}

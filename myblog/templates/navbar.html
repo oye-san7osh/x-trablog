@@ -1,0 +1,47 @@
+<header>
+    <div class="container">
+        <h1 class="logo">
+            X-trafolio
+        </h1>
+
+        <nav class="nav-bar">
+            <ul>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+        
+                {% if user.is_authenticated %}
+                    {% if user.is_staff %}
+                        <li>
+                            <a href="{% url 'blog:post-list' %}">Blog</a>
+                        </li>
+                        
+                        <li>
+                            <a href="{% url 'users:logout' %}">Log Out</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{% url 'blog:post-list' %}">Blog</a>
+                        </li>
+                        
+                        <li>
+                            <a href="{% url 'users:logout' %}">Log Out</a>
+                        </li>
+                    {% endif%}
+                {% else %}
+                    <li>
+                        <a href="{% url 'blog:post-list' %}">Blog</a>
+                    </li>
+                
+                    <li>
+                        <a href="{% url 'users:register' %}">Sign Up</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'users:login' %}">Log In</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
+</header>

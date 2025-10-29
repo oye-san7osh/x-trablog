@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div class="create-blog-comment">
+        <h2>Comments: </h2>
+
+        <form action="{% url 'blog:post-comment' post.slug %}" method = "POST">
+            {% csrf_token %}
+            
+            <div class="comment-post">
+                {{ commentForm.comment_content }}
+            </div>
+
+            <button type = 'submit'>
+                Comment
+            </button>
+            &nbsp; &nbsp; &nbsp;
+
+            <a href="{% url 'blog:post-list' %}">Cancle</a>
+        </form>
+    </div>
+
+{% endblock%}

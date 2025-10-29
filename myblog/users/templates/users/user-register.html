@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <h2>Create a your new account: </h2>
+    
+    <form action="{% url 'users:register' %}" method="POST">
+        {% csrf_token %}
+        <div class="user-register">
+
+            <div class="username">
+                <p>
+                    {{ userform.username.label_tag }}
+                    {{ userform.username }}
+                </p>
+            </div>
+
+            <div class="email">
+                <p>
+                    {{ userform.email.label_tag }}
+                    {{ userform.email }}
+                </p>
+            </div>
+
+            <div class="password1">
+                <p>
+                    {{ userform.password1.label_tag }}
+                    {{ userform.password1 }}
+                </p>
+            </div>
+
+            <div class="password2">
+                <p>
+                    {{ userform.password2.label_tag }}
+                    {{ userform.password2 }}
+                </p>
+            </div>
+        </div>
+
+        <button type = 'submit'>
+            Create Account
+        </button>
+
+    </form>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div class="user-logout">
+        <p>Do you want to logout? </p>
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            <button type = "submit">Yes</button>
+
+            &nbsp; &nbsp; &nbsp;
+
+            <a href="{% url 'blog:post-list'%}">No</a>
+
+        </form>
+
+    </div>
+    
+{% endblock %}

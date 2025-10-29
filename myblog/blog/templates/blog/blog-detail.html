@@ -1,0 +1,85 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <h2>Post Detail:</h2>
+
+    <div class="post-detail">
+
+        <section class="post-title">
+            <p>
+                Post title: {{ postdetail.title }}
+                
+            </p>
+        </section>
+
+        <section class="post-body">
+            <p>
+                {{ postdetail.content }}
+            </p>
+
+            {% if postdetail.image %}
+                <p>
+                    <img src="{{ postdetail.image.url }}" alt="Post Image" width="300">
+                </p>
+            {% endif %}
+
+            {% if postdetail.video %}
+                <p>
+                    <video width="400" controls>
+                        <source src="{{ postdetail.video.url }}" type="video/mp4">
+                     </video>
+                </p>
+            {% endif %}
+
+            {% if postdetail.document %}
+                <p>
+                    <a href="{{ postdetail.attachment.url }}" download>📎 Download File</a>
+                </p>
+            {% endif %}
+        </section>
+
+        <section class="author-date">
+            <p>
+                Post Published on {{ postdetail.published_date }}
+            </p>
+        </section>
+    </div>
+
+    <div class="comment-section">
+        <a href="{% url 'blog:post-comment' postdetail.slug %}">Add Comment</a>
+        &nbsp;  &nbsp;
+
+        <a href="{% url 'blog:post-list' %}">
+            Back
+        </a>
+    </div>
+    
+    <hr>
+
+    {% for comment in comments %}
+        <div class="comment">
+            <strong>{{ comment.user }}</strong>
+            <small>{{ comment.created_at | date:"M d, Y"}}</small>
+            <p>{{ comment.comment_content }}</p>
+        </div>
+
+        {% if request.user == comment.user %}
+            <form action="{% url 'blog:remove-comment' comment.id%}" method="POST">
+                {% csrf_token %}
+
+                <button type = "submit" class = "btn btn-danger btn-sm">Delete</button>
+            </form>
+
+            <a href="{% url 'blog:edit-comment' comment.id %}">Edit</a>
+            <hr>
+        {% endif %}
+    {% empty %}
+        <p>
+            No comments yet. Be the first to comment!
+        </p>
+    {% endfor %}
+    
+    
+    
+{% endblock %}
